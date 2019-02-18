@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.com/scivision/libreoffice-utils.svg?branch=master)](https://travis-ci.com/scivision/libreoffice-utils)
+[![PyPi versions](https://img.shields.io/pypi/pyversions/loutils.svg)](https://pypi.python.org/pypi/loutils)
+[![PyPi Download stats](http://pepy.tech/badge/loutils)](http://pepy.tech/project/loutils)
 
 # LibreOffice Utils
 

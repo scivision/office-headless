@@ -2,28 +2,26 @@
 """
 prints DOC, DOCX, RTF, etc. using LibreOffice.
 """
-from pathlib import Path
 from argparse import ArgumentParser
 import subprocess
+from loutils import EXE, docfinder
 
 
 def main():
     p = ArgumentParser()
     p.add_argument('path', help='path to work in')
-    p.add_argument('-g', '--glob', help='file extensions to print', nargs='+',
-                   default=['*.doc', '*.docx', '*.rtf'])
+    p.add_argument('-s', '--suffix',
+                   help='file extensions to print', nargs='+',)
     p = p.parse_args()
 
-    path = Path(p.path).expanduser().resolve()
+    flist = docfinder(p.path, p.suffix)
 
-    for g in p.glob:
-        for fn in path.glob(g):
+    for f in flist:
+        print('printing', f)
 
-            print('printing', fn)
+        cmd = [EXE, '-p', str(f)]
 
-            cmd = ['soffice', '-p', str(fn)]
-
-            subprocess.check_call(cmd, cwd=path)
+        subprocess.check_call(cmd)
 
 
 if __name__ == '__main__':

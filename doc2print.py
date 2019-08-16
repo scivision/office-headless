@@ -19,7 +19,7 @@ def main():
     p = p.parse_args()
 
     for f in loutils.docfinder(p.path, p.suffix):
-        yesno = input("Enter 'y' to print:", f)
+        yesno = input(f"Enter 'y' to print: {f}")
         if not yesno == "y":
             continue
 

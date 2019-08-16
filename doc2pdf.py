@@ -8,66 +8,20 @@ silently fail if simultaneous processes are launched--sometimes.
 Thus, we use the "dumb" for loop, as the command line globbing doesn't work either,
 even just from Terminal!
 """
-from pathlib import Path
 from argparse import ArgumentParser
-import asyncio
-import logging
-import subprocess
 
-from loutils import EXE, docfinder
-
-
-async def arbiter_concurrent(filein: Path):
-    """ concurrent subprocess """
-    assert isinstance(EXE, str)
-
-    cmd = [EXE,
-           '--convert-to', 'pdf',
-           '--outdir', str(filein.parent),
-           str(filein)]
-
-    proc = await asyncio.create_subprocess_exec(*cmd,
-                                                stderr=subprocess.DEVNULL)
-
-    ret = await proc.wait()
-    # print(' '.join(cmd), ret)
-
-    if ret != 0:
-        logging.warning(f'FAILED: {filein}')
-
-
-def arbiter_serial(filein: Path):
-    """ Since Libreoffice isn't threadsaft """
-    assert isinstance(EXE, str)
-
-    cmd = [EXE,
-           '--convert-to', 'pdf',
-           '--outdir', str(filein.parent),
-           str(filein)]
-
-    subprocess.check_call(cmd, stderr=subprocess.DEVNULL)
+import loutils
 
 
 def main():
     p = ArgumentParser()
-    p.add_argument('path', help='path to work in')
-    p.add_argument('-s', '--suffix',
-                   help='file extensions to convert', nargs='+')
+    p.add_argument("path", help="path to work in")
+    p.add_argument("-s", "--suffix", help="file extensions to convert", nargs="+")
     p = p.parse_args()
 
-    flist = docfinder(p.path, p.suffix, exclude='.pdf')
-    """
-        futures = [arbiter_concurrent(f) for f in flist]
-
-        if not futures:
-            raise SystemExit(f'no files found in {p.path} to convert to PDF')
-
-        asyncio.run(asyncio.wait(futures))
-    """
-# %% fallback until LibreOffice is threadsafe
-    for f in flist:
-        arbiter_serial(f)
+    for f in loutils.docfinder(p.path, p.suffix, exclude=".pdf"):
+        loutils.doc2pdf(f)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

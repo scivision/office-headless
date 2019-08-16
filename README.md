@@ -4,9 +4,24 @@
 
 # LibreOffice Utils
 
-Word / rich text document conversion and printing from Python command line using LibreOffice.
+Headless (command line) operations on Word / rich text documents for:
 
-These scripts use the command-line interface of LibreOffice in a headless (no GUI) fashion.
+* Doc => PDF conversion  (LibreOffice only)
+* printing (to the system default printer only)
 
-Because LibreOffice (at least through 6.2) is not threadsafe, we cannot yet use asyncio to launch numerous subprocesses for document conversion.
-Further, since the command-line globbing of LibreOffice conversion is broken, this program provides a sane workaround for mass document conversion using LibreOffcie.
+from Python command line using LibreOffice or Microsoft Word.
+
+These scripts use the command-line interface of LibreOffice or Microsoft Word in a headless (no GUI) fashion.
+
+**CAUTION**
+The doc2print.py script can print an unlimited number of pages to an unwanted printer, possibly causing great expense or violation of private documents to a public printer. Use great care with these scripts, preferably to a local non-networked printer you are sitting next to.
+
+## LibreOffice
+
+Since the command-line globbing of LibreOffice conversion is broken, this program provides a sane workaround for mass document conversion using LibreOffice.
+LibreOffice is not thread-safe, so documents are converted or printed one at a time.
+
+## Microsoft Word
+
+Microsoft Word can be used to print to the system default printer.
+On Windows, be sure that "Let Windows manage my default printer" is unchecked to avoid surprise default printer.

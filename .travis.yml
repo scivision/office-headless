@@ -7,7 +7,7 @@ git:
 
 python: 3.6
 
-install: pip install -e .[tests,cov]
+install: pip install -e .[lint]
 
 script:
 - flake8

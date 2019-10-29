@@ -2,7 +2,9 @@ import typing
 from pathlib import Path
 
 # whatever you might like to convert
-SUFFIXES = [".doc", ".docx", ".odt", ".pages", ".pub", ".rtf", ".wps", ".wri"]
+SUFFIXES = (".doc", ".docx", ".odt", ".pages", ".pub", ".rtf", ".wpd", ".wps", ".wri",
+            ".xls", ".xlsx", ".ods", ".wks",
+            ".ppt", ".pptx", ".odp")
 
 
 def docfinder(
@@ -26,7 +28,7 @@ def docfinder(
         for f in path.iterdir():
             if (
                 f.is_file()
-                and f.suffix in suffixes
+                and f.suffix.lower() in suffixes
                 and not f.with_suffix(exclude).is_file()
             ):
                 yield f

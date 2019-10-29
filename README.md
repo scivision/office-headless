@@ -4,7 +4,9 @@
 
 # LibreOffice Utils
 
-Headless (command line) operations on Word / rich text documents for:
+Headless (command line) operations on Word, Excel, Powerpoint and most other 
+[formats LibreOffice can handle](https://en.wikipedia.org/wiki/LibreOffice#Supported_file_formats)
+for:
 
 * Doc => PDF conversion  (LibreOffice only)
 * printing (to the system default printer only)

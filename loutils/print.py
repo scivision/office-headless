@@ -1,14 +1,14 @@
 from pathlib import Path
 import subprocess
-import shutil
+from . import LOEXE
 
 
 def doc2print(filein: Path, exe: str):
     if exe == "libreoffice":
-        if not shutil.which(exe):
-            raise SystemExit(f"{exe} not found")
+        if not LOEXE:
+            raise SystemExit(f"{LOEXE} not found")
 
-        cmd = [exe, "-p", str(filein)]
+        cmd = [LOEXE, "-p", str(filein)]
     elif exe == "winword":
         # shutil.which doesn't work for winword
         cmd = [exe, "/q", "/x", "/mFilePrintDefault", "/t", str(filein)]

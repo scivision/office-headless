@@ -1,13 +1,12 @@
 from pathlib import Path
 import subprocess
-import shutil
+from . import LOEXE
 
 
 def doc2pdf(filein: Path):
-    exe = "libreoffice"
-    if not shutil.which(exe):
-        raise SystemExit(f"{exe} not found")
+    if not LOEXE:
+        raise SystemExit(f"{LOEXE} not found")
 
-    cmd = [exe, "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
+    cmd = [LOEXE, "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
 
     subprocess.check_call(cmd, stderr=subprocess.DEVNULL)

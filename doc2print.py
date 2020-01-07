@@ -12,7 +12,10 @@ def main():
     p.add_argument("path", help="path to work in")
     p.add_argument("-s", "--suffix", help="file extensions to print", nargs="+")
     p.add_argument(
-        "-exe", help="conversion program (libreoffice or winword)", default="libreoffice",
+        "-exe",
+        help="conversion program (libreoffice or winword)",
+        choices=["libreoffice", "winword", "wordpad"],
+        default="libreoffice",
     )
     p = p.parse_args()
 

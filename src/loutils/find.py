@@ -1,4 +1,4 @@
-import typing
+import typing as T
 from pathlib import Path
 
 # whatever you might like to convert
@@ -22,7 +22,7 @@ SUFFIXES = (
 )
 
 
-def docfinder(path: Path, suffixes: typing.Sequence[str] = None, exclude: str = None) -> typing.Iterator[Path]:
+def docfinder(path: Path, suffixes: T.Sequence[str] = None, exclude: str = None) -> T.Iterator[Path]:
 
     path = Path(path).expanduser().resolve()
 

@@ -16,9 +16,6 @@ def doc2print(filein: Path, exe: str):
     elif exe == "acroread":
         cmd = ["C:/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/acrord32.exe", "/p", str(filein)]
     else:
-        raise SystemExit(f"unknown program {exe}")
+        raise ValueError(f"unknown program {exe}")
 
-    try:
-        subprocess.check_call(cmd)
-    except FileNotFoundError:
-        raise SystemExit(f"{exe} not found")
+    subprocess.check_call(cmd)

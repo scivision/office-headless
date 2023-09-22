@@ -27,4 +27,5 @@ if __name__ == "__main__":
     P = p.parse_args()
 
     for f in docfinder(P.path, P.suffix, exclude=".pdf"):
+        print(f"converting to PDF: {f}")
         doc2pdf(f)

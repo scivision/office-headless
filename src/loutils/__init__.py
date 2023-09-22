@@ -3,6 +3,7 @@ import typing as T
 from pathlib import Path
 import shutil
 import os
+import sys
 import functools
 
 # whatever you might like to convert
@@ -28,7 +29,16 @@ SUFFIXES = (
 
 @functools.cache
 def get_lo_exe() -> str:
-    if not (exe := shutil.which("soffice")):
+    name = "soffice"
+
+    if os.name == "nt":
+        path = Path(os.environ["PROGRAMFILES"]) / "LibreOffice/program"
+    elif sys.platform == "darwin":
+        path = Path("/Applications/LibreOffice.app/Contents/MacOS")
+    else:
+        path = None
+
+    if not (exe := shutil.which(name, path=path)):
         raise FileNotFoundError("LibreOffice not found")
 
     return exe
@@ -60,6 +70,25 @@ def get_powerpoint_exe() -> str:
 
     if not (exe := shutil.which(name, path=path)):
         raise FileNotFoundError("Microsoft PowerPoint not found")
+
+    return exe
+
+
+@functools.cache
+def get_adobe_exe() -> str:
+    """
+    Adobe is no longer available on Linux
+    """
+
+    if os.name == "nt":
+        name = "acrord32"
+        path = Path(os.environ["PROGRAMFILES(x86)"]) / "Adobe/Acrobat Reader DC/Reader"
+    else:
+        name = "AdobeAcrobat"
+        path = Path("/Applications/Adobe Acrobat DC/Adobe Acrobat.app/Contents/MacOS")
+
+    if not (exe := shutil.which(name, path=path)):
+        raise FileNotFoundError("Adobe Acrobat not found")
 
     return exe
 

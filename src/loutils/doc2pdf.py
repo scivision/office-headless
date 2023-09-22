@@ -8,7 +8,7 @@ from . import docfinder, get_lo_exe
 def doc2pdf(filein: Path):
     cmd = [get_lo_exe(), "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
 
-    subprocess.check_call(cmd, stderr=subprocess.DEVNULL)
+    subprocess.check_call(cmd)
 
 
 if __name__ == "__main__":

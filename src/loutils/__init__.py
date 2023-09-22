@@ -1,6 +1,9 @@
 from __future__ import annotations
 import typing as T
 from pathlib import Path
+import shutil
+import os
+import functools
 
 # whatever you might like to convert
 SUFFIXES = (
@@ -23,10 +26,47 @@ SUFFIXES = (
 )
 
 
-def docfinder(
-    path: Path, suffixes: tuple[str, ...] = None, exclude: str = None
-) -> T.Iterator[Path]:
+@functools.cache
+def get_lo_exe() -> str:
+    if not (exe := shutil.which("soffice")):
+        raise FileNotFoundError("LibreOffice not found")
 
+    return exe
+
+
+@functools.cache
+def get_word_exe() -> str:
+    if os.name == "nt":
+        name = "winword"
+        path = None
+    else:
+        name = "Microsoft Word"
+        path = "/Applications/Microsoft Word.app/Contents/MacOS/"
+
+    if not (exe := shutil.which(name, path=path)):
+        raise FileNotFoundError("Microsoft Word not found")
+
+    return exe
+
+
+@functools.cache
+def get_powerpoint_exe() -> str:
+    if os.name == "nt":
+        name = "powerpnt"
+        path = None
+    else:
+        name = "Microsoft PowerPoint"
+        path = "/Applications/Microsoft PowerPoint.app/Contents/MacOS/"
+
+    if not (exe := shutil.which(name, path=path)):
+        raise FileNotFoundError("Microsoft PowerPoint not found")
+
+    return exe
+
+
+def docfinder(
+    path: Path, suffixes: tuple[str, ...] | None = None, exclude: str | None = None
+) -> T.Iterator[Path]:
     path = Path(path).expanduser().resolve()
 
     if not suffixes:

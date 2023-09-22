@@ -1,10 +1,10 @@
-# LibreOffice Utils
+# Headless LibreOffice / Microsoft Office
 
-[![Actions Status](https://github.com/scivision/libreoffice-utils/workflows/ci/badge.svg)](https://github.com/scivision/libreoffice-utils/actions)
+[![Actions Status](https://github.com/scivision/office-headless/workflows/ci/badge.svg)](https://github.com/scivision/office-headless/actions)
 [![PyPi versions](https://img.shields.io/pypi/pyversions/loutils.svg)](https://pypi.python.org/pypi/loutils)
 [![PyPi Download stats](http://pepy.tech/badge/loutils)](http://pepy.tech/project/loutils)
 
-Headless (command line) operations on Word, Excel, Powerpoint and most other
+Headless (command line) operations by LibreOffice or Microsoft Office on Word, Excel, Powerpoint and most other
 [formats LibreOffice can handle](https://en.wikipedia.org/wiki/LibreOffice#Supported_file_formats)
 for:
 

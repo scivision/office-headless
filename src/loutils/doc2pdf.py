@@ -1,18 +1,12 @@
 from pathlib import Path
 import subprocess
-import shutil
 import argparse
 
-from . import docfinder
-
-LOEXE = shutil.which("soffice")
+from . import docfinder, get_lo_exe
 
 
 def doc2pdf(filein: Path):
-    if not LOEXE:
-        raise EnvironmentError("LibreOffice not found")
-
-    cmd = [LOEXE, "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
+    cmd = [get_lo_exe(), "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
 
     subprocess.check_call(cmd, stderr=subprocess.DEVNULL)
 
@@ -30,7 +24,7 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("path", help="path to work in")
     p.add_argument("-s", "--suffix", help="file extensions to convert", nargs="+")
-    p = p.parse_args()
+    P = p.parse_args()
 
-    for f in docfinder(p.path, p.suffix, exclude=".pdf"):
+    for f in docfinder(P.path, P.suffix, exclude=".pdf"):
         doc2pdf(f)

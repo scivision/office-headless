@@ -1,6 +1,32 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "loutils"
+version = "1.4.0"
+description = "Cross-platform LibreOffice document conversion and printing"
+keywords = ["libreoffice"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: End Users/Desktop",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Utilities"
+]
+dynamic = ["readme"]
+requires-python = ">=3.9"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[project.optional-dependencies]
+tests = ["pytest"]
+lint = ["flake8", "flake8-bugbear", "flake8-builtins", "flake8-blind-except", "mypy"]
 
 [tool.black]
 line-length = 99
+
+[tool.mypy]
+files = ["src"]

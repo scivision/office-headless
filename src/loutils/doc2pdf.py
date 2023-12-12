@@ -5,8 +5,12 @@ import argparse
 from . import docfinder, get_lo_exe
 
 
-def doc2pdf(filein: Path):
-    cmd = [get_lo_exe(), "--convert-to", "pdf", "--outdir", str(filein.parent), str(filein)]
+def doc2pdf(filein: Path, out_dir: Path | None = None):
+
+    if not out_dir:
+        out_dir = filein.parent
+
+    cmd = [get_lo_exe(), "--convert-to", "pdf", "--outdir", str(out_dir), str(filein)]
 
     subprocess.check_call(cmd)
 
@@ -24,8 +28,12 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("path", help="path to work in")
     p.add_argument("-s", "--suffix", help="file extensions to convert", nargs="+")
+    p.add_argument("-o", "--outdir", help="output directory")
     P = p.parse_args()
+
+    if P.outdir:
+        outdir = Path(P.outdir).expanduser().resolve()
 
     for f in docfinder(P.path, P.suffix, exclude=".pdf"):
         print(f"converting to PDF: {f}")
-        doc2pdf(f)
+        doc2pdf(f, outdir)

@@ -13,7 +13,7 @@ def doc2pdf(filein: Path):
 
 if __name__ == "__main__":
     """
-    Convert DOC, DOCX, ODT, RTF, etc. to PDF using LibreOffice
+    Convert plain text, DOC, DOCX, ODT, RTF, etc. to PDF using LibreOffice
     It leaves the original files alone, putting the PDF in the same directory.
 
     NOTE: LibreOffice conversion is not thread-safe--it will

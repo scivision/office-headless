@@ -1,10 +1,10 @@
 # Headless LibreOffice / Microsoft Office
 
 [![Actions Status](https://github.com/scivision/office-headless/workflows/ci/badge.svg)](https://github.com/scivision/office-headless/actions)
-[![PyPi versions](https://img.shields.io/pypi/pyversions/loutils.svg)](https://pypi.python.org/pypi/loutils)
-[![PyPi Download stats](http://pepy.tech/badge/loutils)](http://pepy.tech/project/loutils)
+[![PyPI versions](https://img.shields.io/pypi/pyversions/loutils.svg)](https://pypi.python.org/pypi/loutils)
+[![PyPI Download stats](http://pepy.tech/badge/loutils)](http://pepy.tech/project/loutils)
 
-Headless (command line) operations by LibreOffice or Microsoft Office on Word, Excel, Powerpoint and most other
+Headless (command line) operations by LibreOffice or Microsoft Office on Word, Excel, PowerPoint and most other
 [formats LibreOffice can handle](https://en.wikipedia.org/wiki/LibreOffice#Supported_file_formats)
 for:
 
@@ -12,6 +12,16 @@ for:
 * printing (to the system default printer only)
 
 from Python command line using LibreOffice or Microsoft Word
+
+## standalone single file document to PDF
+
+For reuse in other programs and projects, we made a
+[separate standalone script doc2pdf.py](./doc2pdf.py)
+to convert any document that LibreOffice can handle to PDF.
+
+```sh
+python doc2pdf.py ~/mydoc.docx
+```
 
 ## .doc / .docx to PDF conversion
 
@@ -40,5 +50,5 @@ For example to print all Markdown files in a directory with Notepad++:
 python -m loutils.doc2print ~/mydocs -s .md -exe notepad++
 ```
 
-LibreOffice 7.2 finally fixed file globbing, but we use explict for-looping to work with older LibreOffice.
+LibreOffice 7.2 finally fixed file globbing, but we use explicit for-looping to work with older LibreOffice.
 LibreOffice is not thread-safe, so documents are converted or printed one at a time.

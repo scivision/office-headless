@@ -13,13 +13,13 @@ import argparse
 
 def get_lo_exe() -> str:
     name = "soffice"
+    path = None
 
-    if os.name == "nt":
-        path = Path(os.environ["PROGRAMFILES"]) / "LibreOffice/program"
-    elif sys.platform == "darwin":
-        path = Path("/Applications/LibreOffice.app/Contents/MacOS")
-    else:
-        path = None
+    match sys.platform:
+        case "win32":
+            path = Path(os.environ["PROGRAMFILES"]) / "LibreOffice/program"
+        case "darwin":
+            path = Path("/Applications/LibreOffice.app/Contents/MacOS")
 
     if not (exe := shutil.which(name, path=path)):
         raise FileNotFoundError("LibreOffice not found")

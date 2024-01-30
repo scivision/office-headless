@@ -17,6 +17,8 @@ def doc2print(filein: Path, exe: str):
     https://support.microsoft.com/en-us/office/command-line-switches-for-microsoft-office-products-079164cd-4ef5-4178-b235-441737deb3a6
 
     We don't use WordPad as it adds an extra page and has difficulty with modern Word docs.
+
+    VS Code doesn't have a command line print option.
     """
 
     match exe:
@@ -28,6 +30,8 @@ def doc2print(filein: Path, exe: str):
             cmd = [get_powerpoint_exe(), "/P", str(filein)]
         case "notepad++":
             cmd = ["notepad++", "-quickPrint", str(filein)]
+        case "notepad":  # Windows Notepad
+            cmd = ["notepad", "/P", str(filein)]
         case "acroread":
             cmd = [get_adobe_exe(), "/p", str(filein)]
         case _:
@@ -48,7 +52,7 @@ if __name__ == "__main__":
     p.add_argument(
         "-exe",
         help="printing program",
-        choices=["libreoffice", "word", "notepad++", "powerpoint", "acroread"],
+        choices=["libreoffice", "word", "notepad", "notepad++", "powerpoint", "acroread"],
         default="libreoffice",
     )
     P = p.parse_args()

@@ -6,6 +6,8 @@ import os
 import sys
 import functools
 
+__version__ = "1.4.0"
+
 # whatever you might like to convert
 SUFFIXES = (
     ".doc",
